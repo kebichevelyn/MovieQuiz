@@ -22,8 +22,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="5aa-qb-KGD">
-                                <rect key="frame" x="20" y="58" width="374" height="722"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="5aa-qb-KGD">
+                                <rect key="frame" x="20" y="106" width="374" height="722"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DbU-JV-Jbm">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="23.5"/>
@@ -58,6 +58,11 @@
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="3iW-rW-keA" secondAttribute="height" multiplier="2:3" id="iNZ-PU-kMh"/>
                                         </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.corner">
+                                                <integer key="value" value="16"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Рейтинг этого фильма меньше, чем 5?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RMs-DO-HMe" userLabel="Question Label">
                                         <rect key="frame" x="0.0" y="624.5" width="374" height="17.5"/>
@@ -88,6 +93,9 @@
                                                         <integer key="value" value="15"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="noButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="N4O-WB-rjF"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lOg-e5-3YE" userLabel="Кнопка Да">
                                                 <rect key="frame" x="197" y="0.0" width="177" height="60"/>
@@ -108,6 +116,9 @@
                                                         <integer key="value" value="15"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="yesButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Vjg-Vn-PpB"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
@@ -126,6 +137,11 @@
                             <constraint firstItem="5aa-qb-KGD" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="qo0-IA-2Rj"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="counterLabel" destination="kpL-dt-O3b" id="yBg-3X-ozo"/>
+                        <outlet property="imageView" destination="3iW-rW-keA" id="nD4-jQ-Oka"/>
+                        <outlet property="textLabel" destination="jhP-hp-91w" id="Iex-sw-Q1d"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
