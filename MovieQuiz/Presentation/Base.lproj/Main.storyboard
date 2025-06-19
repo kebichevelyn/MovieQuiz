@@ -67,7 +67,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Рейтинг этого фильма меньше, чем 5?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RMs-DO-HMe" userLabel="Question Label">
                                         <rect key="frame" x="0.0" y="624.5" width="374" height="17.5"/>
                                         <color key="tintColor" name="YP White (iOS)"/>
-                                        <fontDescription key="fontDescription" name="YSDisplay-Medium" family="YS Display" pointSize="23"/>
+                                        <fontDescription key="fontDescription" name="YSDisplay-Bold" family="YS Display" pointSize="23"/>
                                         <color key="textColor" name="YP White (iOS)"/>
                                         <color key="highlightedColor" name="YP White (iOS)"/>
                                     </label>
@@ -140,7 +140,9 @@
                     <connections>
                         <outlet property="counterLabel" destination="kpL-dt-O3b" id="yBg-3X-ozo"/>
                         <outlet property="imageView" destination="3iW-rW-keA" id="nD4-jQ-Oka"/>
-                        <outlet property="textLabel" destination="jhP-hp-91w" id="Iex-sw-Q1d"/>
+                        <outlet property="noButton" destination="KXe-3S-RAT" id="onO-7t-7sO"/>
+                        <outlet property="textLabel" destination="RMs-DO-HMe" id="rEd-oz-T6X"/>
+                        <outlet property="yesButton" destination="lOg-e5-3YE" id="NYd-Zc-9Me"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
