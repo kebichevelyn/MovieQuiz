@@ -5,7 +5,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
     //MARK: - Properties
     
     private var correctAnswers: Int = 0
-    
+    private let statisticService: StatisticServiceProtocol = StatisticService()
     private var currentQuestionIndex: Int = 0
     
     private let questionsAmount: Int = 10
@@ -47,7 +47,6 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
         questionFactory = QuestionFactory(delegate: self)
         questionFactory?.requestNextQuestion()
     }
-    //перед сдачей: delegate работает ли?
     //MARK: - QuestionFactoryDelegate
     
     func didReceiveNextQuestion(question: QuizQuestion?) {
@@ -114,21 +113,29 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
     }
     
     private func show(quiz result: QuizResultsViewModel) {
+        statisticService.store(correct: correctAnswers, total: questionsAmount)
+        
+        let currentResult = "Ваш результат: \(correctAnswers)/\(questionsAmount)\n"
+        let bestGame = statisticService.bestGame
+        let bestGameInfo = "Рекорд: \(bestGame.correct)/\(bestGame.total)(\(bestGame.date.dateTimeString))\n"
+        let totalAccuracy = "Средняя точность: \(String(format: "%.2f", statisticService.totalAccuracy))%\n"
+        let gamesCount = "Количество сыгранных квизов: \(statisticService.gamesCount)"
+        
         let alertModel = AlertModel(
             title: result.title,
-            message: result.text,
+            message: currentResult + bestGameInfo + totalAccuracy + gamesCount,
             buttonText: result.buttonText,
             completion: { [weak self] in
-                guard let self = self else { return }
-                //начинаем игру с самого начала
-                self.currentQuestionIndex = 0
-                self.correctAnswers = 0
-                self.questionFactory?.requestNextQuestion()
-                self.setButtonsEnabled(true)
-            }
-        )
+            guard let self = self else { return }
+            
+            self.currentQuestionIndex = 0
+            self.correctAnswers = 0
+            self.questionFactory?.requestNextQuestion()
+        }
+    )
         alertPresenter.show(alert: alertModel)
     }
+    
     
     private func setButtonsEnabled(_ enabled: Bool) {
         yesButton.isEnabled = enabled
