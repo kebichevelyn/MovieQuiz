@@ -5,9 +5,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
     //MARK: - Properties
     
     private var correctAnswers: Int = 0
-    private let statisticService: StatisticServiceProtocol = StatisticService()
     private var currentQuestionIndex: Int = 0
-    
+    private let statisticService: StatisticServiceProtocol = StatisticServiceImplementation()
     private let questionsAmount: Int = 10
     
     private var questionFactory: QuestionFactoryProtocol?
