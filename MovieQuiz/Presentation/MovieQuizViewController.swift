@@ -17,6 +17,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
     
     //MARK: - Outlets
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet private var noButton: UIButton!
     @IBOutlet private var yesButton: UIButton!
     @IBOutlet private var imageView: UIImageView!
@@ -139,6 +140,31 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
     private func setButtonsEnabled(_ enabled: Bool) {
         yesButton.isEnabled = enabled
         noButton.isEnabled = enabled
+    }
+    
+    private func showLoadingIndicator() {
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+    }
+    private func hideLoadingIndicator() {
+        activityIndicator.isHidden = true
+        activityIndicator.stopAnimating()
+    }
+
+    private func showNetworkError(message: String) {
+        hideLoadingIndicator()
+        
+        let model = AlertModel(title: "Ошибка",
+                               message: message,
+                               buttonText: "Попробовать еще раз") { [weak self] in
+            guard let self = self else { return }
+            
+            self.currentQuestionIndex = 0
+            self.correctAnswers = 0
+            
+            self.questionFactory?.requestNextQuestion()
+        }
+        alertPresenter.show(alert: model)
     }
 }
 
