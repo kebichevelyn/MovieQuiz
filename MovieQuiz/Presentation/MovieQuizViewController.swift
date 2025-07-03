@@ -1,12 +1,21 @@
 import UIKit
 
 final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, AlertPresenterProtocol {
+    func didLoadDataFromServer() {
+        activityIndicator.isHidden = true 
+            questionFactory?.requestNextQuestion()
+    }
+    
+    func didFailToLoadData(with error: any Error) {
+        showNetworkError(message: error.localizedDescription)
+    }
+    
     
     //MARK: - Properties
     
     private var correctAnswers: Int = 0
     private var currentQuestionIndex: Int = 0
-    private let statisticService: StatisticServiceProtocol = StatisticServiceImplementation()
+    private var statisticService: StatisticServiceProtocol = StatisticServiceImplementation()
     private let questionsAmount: Int = 10
     
     private var questionFactory: QuestionFactoryProtocol?
@@ -44,8 +53,13 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        questionFactory = QuestionFactory(delegate: self)
-        questionFactory?.requestNextQuestion()
+        imageView.layer.cornerRadius = 20
+        questionFactory = QuestionFactory(moviesLoader: MoviesLoader(), delegate: self)
+        
+        statisticService = StatisticServiceImplementation()
+        
+        showLoadingIndicator()
+        questionFactory?.loadData()
     }
     //MARK: - QuestionFactoryDelegate
     
@@ -71,7 +85,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
     
     private func convert(model: QuizQuestion) -> QuizStepViewModel {
         return QuizStepViewModel(
-            image: UIImage(named: model.image) ?? UIImage(),
+            image: UIImage(data: model.image) ?? UIImage(),
             question: model.text,
             questionNumber: "\(currentQuestionIndex + 1)/\(questionsAmount)")
     }
