@@ -1,6 +1,6 @@
 import UIKit
 
-final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, AlertPresenterProtocol {
+class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, AlertPresenterProtocol {
     func didLoadDataFromServer() {
         activityIndicator.isHidden = true 
             questionFactory?.requestNextQuestion()
