@@ -12,6 +12,7 @@ class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, AlertP
     
     
     //MARK: - Properties
+    private let presenter = MovieQuizPresenter()
     
     private var correctAnswers: Int = 0
     private var currentQuestionIndex: Int = 0
@@ -67,7 +68,7 @@ class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, AlertP
         guard let question = question else { return }
         
         currentQuestion = question
-        let viewModel = convert(model: question)
+        let viewModel = presenter.convert(model: question)
         //обновление интерфейса перед тем как идти дальше
         DispatchQueue.main.async { [weak self] in
             self?.show(quiz: viewModel)
@@ -82,14 +83,6 @@ class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, AlertP
     }
     
     //MARK: - Private functions
-    
-    private func convert(model: QuizQuestion) -> QuizStepViewModel {
-        return QuizStepViewModel(
-            image: UIImage(data: model.image) ?? UIImage(),
-            question: model.text,
-            questionNumber: "\(currentQuestionIndex + 1)/\(questionsAmount)")
-    }
-    //модель в данные для показа
     
     private func show(quiz step: QuizStepViewModel) {
         imageView.image = step.image
